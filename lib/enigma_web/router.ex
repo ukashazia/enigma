@@ -18,6 +18,7 @@ defmodule EnigmaWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/generator", PasswordController, :generator
   end
 
   # Other scopes may use custom stacks.
