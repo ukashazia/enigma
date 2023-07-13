@@ -19,6 +19,7 @@ defmodule EnigmaWeb.Router do
 
     get "/", PageController, :home
     get "/generator", PasswordController, :generator
+    post "/generator", PasswordController, :generator
   end
 
   # Other scopes may use custom stacks.
