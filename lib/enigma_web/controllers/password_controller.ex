@@ -2,7 +2,7 @@ defmodule EnigmaWeb.PasswordController do
   use EnigmaWeb, :controller
 
   def show(conn, _parama) do
-    render(conn, :password, password: "Generated password will show here", layout: false)
+    render(conn, :password, password: nil, layout: false)
   end
 
   def generator(conn, _params) do
