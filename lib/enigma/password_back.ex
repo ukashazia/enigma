@@ -5,12 +5,7 @@ defmodule Enigma.PasswordBack do
 
   @doc """
   Generate a random password
-  map = %{
-    big_letters: true,
-    numbers: true,
-    special_chars: true,
-    length: 8
-  }
+  an alternative way to generate password
   """
   def generate(map) do
     small_letters =

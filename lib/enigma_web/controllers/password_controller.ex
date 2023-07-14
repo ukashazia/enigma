@@ -5,6 +5,12 @@ defmodule EnigmaWeb.PasswordController do
     render(conn, :password, password: nil, layout: false)
   end
 
+  @doc """
+    Generator function take raw conn.params map, converts it's string keys into
+    atoms, changes the values from "on" to true. Passes the modified map to Enigma.Password.generate
+    and forwards the generated password to view template
+  """
+
   def generator(conn, _params) do
     # Destructuring and modifying the map provided by Conn
 
@@ -14,8 +20,11 @@ defmodule EnigmaWeb.PasswordController do
 
     map =
       conn.params
+      # map keys in strings are converted to atoms
       |> Map.new(fn {key, value} -> {String.to_atom(key), value} end)
+      # map values in string are converted to truthy
       |> Map.new(fn {key, _value} -> {key, true} end)
+      # reassignment of :length key to the previously extracted pass_length variable
       |> Map.put(:length, pass_length)
 
     # Applying input validations
