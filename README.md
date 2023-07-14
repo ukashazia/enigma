@@ -4,8 +4,8 @@
 
 ## Screenshots
 
-![Screenshot](screenshots/desktop%201.png)
 ![Screenshot](screenshots/desktop%202.png)
+![Screenshot](screenshots/desktop%201.png)
 
 To start your Phoenix server:
 
