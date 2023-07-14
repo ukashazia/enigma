@@ -6,7 +6,7 @@ defmodule EnigmaWeb.Router do
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, {EnigmaWeb.Layouts, :root}
-    plug :protect_from_forgery
+    # plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
 
@@ -18,7 +18,7 @@ defmodule EnigmaWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-    get "/generator", PasswordController, :generator
+    get "/generator", PasswordController, :show
     post "/generator", PasswordController, :generator
   end
 
