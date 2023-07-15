@@ -3,7 +3,7 @@ defmodule EnigmaWeb.PasswordController do
 
   def show(conn, _parama) do
     conn
-    |> render(:password, password: nil, csrf_token: get_csrf_token(), layout: false)
+    |> render(:password, password: "Generated Password", map: %{})
   end
 
   @doc """
@@ -31,14 +31,15 @@ defmodule EnigmaWeb.PasswordController do
     # Applying input validations
 
     case map do
-      %{:length => x} when not is_integer(x) or x < 4 or x > 50 ->
+      %{length: x} when not is_integer(x) or x == nil or x < 4 or x > 50 ->
         conn
         |> put_flash(:error, "Invalid Length")
-        |> render(:password, password: nil)
+        |> redirect(to: "/generator")
 
-      %{:length => x} when is_integer(x) and (x >= 4 or x <= 50) ->
+      %{length: x} when is_integer(x) and (x >= 4 or x <= 50) ->
         password = Enigma.Password.generate(map)
-        render(conn, :password, password: password, csrf_token: get_csrf_token(), layout: false)
+        IO.inspect(password)
+        render(conn, :password, password: password, map: map)
     end
   end
 end

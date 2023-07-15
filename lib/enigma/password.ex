@@ -19,6 +19,7 @@ defmodule Enigma.Password do
     |> Map.values()
     |> List.flatten()
     |> Enum.shuffle()
+    |> Enum.reject(&(&1 == nil))
     |> Enum.take(map.length)
   end
 end
