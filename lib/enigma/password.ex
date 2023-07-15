@@ -9,7 +9,7 @@ defmodule Enigma.Password do
            Enum.to_list(58..64) ++
            Enum.to_list(91..96) ++
            Enum.to_list(123..126))
-        |> List.duplicate(4)
+        |> List.duplicate(5)
     }
 
     Enum.map(map, fn {key, _} -> {key, Map.get(char_map, key)} end)
