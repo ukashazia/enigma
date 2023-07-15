@@ -2,7 +2,8 @@ defmodule EnigmaWeb.PasswordController do
   use EnigmaWeb, :controller
 
   def show(conn, _parama) do
-    render(conn, :password, password: nil, layout: false)
+    conn
+    |> render(:password, password: nil, csrf_token: get_csrf_token(), layout: false)
   end
 
   @doc """
@@ -11,7 +12,7 @@ defmodule EnigmaWeb.PasswordController do
     and forwards the generated password to view template
   """
 
-  def generator(conn, _params) do
+  def generator(conn, params) do
     # Destructuring and modifying the map provided by Conn
 
     pass_length =
@@ -19,7 +20,7 @@ defmodule EnigmaWeb.PasswordController do
       |> String.to_integer()
 
     map =
-      conn.params
+      params
       # map keys in strings are converted to atoms
       |> Map.new(fn {key, value} -> {String.to_atom(key), value} end)
       # map values in string are converted to truthy
@@ -37,7 +38,7 @@ defmodule EnigmaWeb.PasswordController do
 
       %{:length => x} when is_integer(x) and (x >= 4 or x <= 50) ->
         password = Enigma.Password.generate(map)
-        render(conn, :password, password: password, layout: false)
+        render(conn, :password, password: password, csrf_token: get_csrf_token(), layout: false)
     end
   end
 end
