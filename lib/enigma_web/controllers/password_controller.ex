@@ -27,6 +27,8 @@ defmodule EnigmaWeb.PasswordController do
       |> Map.new(fn {key, _value} -> {key, true} end)
       # reassignment of :length key to the previously extracted pass_length variable
       |> Map.put(:length, pass_length)
+      |> Map.put(:small_letters, true)
+      |> Map.delete(:_csrf_token)
 
     # Applying input validations
 
@@ -38,7 +40,6 @@ defmodule EnigmaWeb.PasswordController do
 
       %{length: x} when is_integer(x) and (x >= 4 or x <= 50) ->
         password = Enigma.Password.generate(map)
-        IO.inspect(password)
         render(conn, :password, password: password, map: map)
     end
   end
