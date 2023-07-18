@@ -1,4 +1,6 @@
 defmodule Enigma.Password do
+  alias Enigma.{PasswordHistory, Repo}
+
   def generate(map) do
     pass_length = map.length
     map_size = map |> Map.keys() |> length() |> Kernel.-(1)
@@ -25,5 +27,19 @@ defmodule Enigma.Password do
     |> Enum.concat(Enum.to_list(?a..?z) |> Enum.shuffle())
     |> Enum.take(map.length)
     |> Enum.shuffle()
+    |> to_string()
+  end
+
+  def add_password_to_history(password) do
+    Repo.insert(%PasswordHistory{password: password})
+  end
+
+  def get_password_history() do
+    Repo.all(PasswordHistory)
+  end
+
+  def delete_password_history() do
+    Repo.delete_all(PasswordHistory)
+    ""
   end
 end

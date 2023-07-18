@@ -40,7 +40,21 @@ defmodule EnigmaWeb.PasswordController do
 
       %{length: x} when is_integer(x) and (x >= 4 or x <= 50) ->
         password = Enigma.Password.generate(map)
+        Enigma.Password.add_password_to_history(password)
         render(conn, :password, password: password, map: map)
     end
+  end
+
+  def history(conn, _params) do
+    password_history = Enigma.Password.get_password_history()
+    render(conn, :history, password_history: password_history)
+  end
+
+  def del_history(conn, _params) do
+    Enigma.Password.delete_password_history()
+
+    conn
+    |> put_flash(:info, "Password History Deleted")
+    |> redirect(to: "/history")
   end
 end

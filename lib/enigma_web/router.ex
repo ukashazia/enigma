@@ -20,6 +20,8 @@ defmodule EnigmaWeb.Router do
     get "/", PageController, :home
     get "/generator", PasswordController, :show
     post "/generator", PasswordController, :generator
+    get "/history", PasswordController, :history
+    post "/delete", PasswordController, :del_history
   end
 
   # Other scopes may use custom stacks.
