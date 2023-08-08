@@ -2,11 +2,11 @@ defmodule EnigmaWeb.PasswordLive do
   use EnigmaWeb, :live_view
   use Phoenix.HTML
 
-  def mount(params, _session, socket) do
+  def mount(_params, _session, socket) do
     socket =
       socket
       |> assign(:password, "Generated Password")
-      |> assign(:map, params)
+      |> assign(:map, %{"length" => "4"})
 
     {:ok, socket}
   end
@@ -19,7 +19,7 @@ defmodule EnigmaWeb.PasswordLive do
             Map.get(unsigned_params, "length")
             |> String.to_integer()
           rescue
-            _ -> 0
+            _ -> Map.get(unsigned_params, "length")
           end
 
         map =

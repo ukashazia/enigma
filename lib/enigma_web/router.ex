@@ -17,7 +17,7 @@ defmodule EnigmaWeb.Router do
   scope "/", EnigmaWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", HomeLive
     # get "/history", PasswordController, :history
     live "/generator", PasswordLive, :show
 
