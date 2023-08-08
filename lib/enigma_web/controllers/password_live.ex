@@ -49,7 +49,6 @@ defmodule EnigmaWeb.PasswordLive do
 
           %{length: x} when is_integer(x) and (x >= 4 or x <= 50) ->
             password = Enigma.Password.generate(map)
-            Enigma.Password.add_password_to_history(password)
 
             socket =
               socket
@@ -59,14 +58,6 @@ defmodule EnigmaWeb.PasswordLive do
 
             {:noreply, socket}
         end
-
-      # "delete" event is triggered when the user clicks on the "Delete History" button
-      "delete" ->
-        Enigma.Password.delete_password_history()
-
-        socket
-        |> assign(:password, "Generated Password")
-        |> assign(:map, %{})
     end
   end
 end
